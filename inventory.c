@@ -33,6 +33,7 @@ typedef struct hashtable {
 // prototype for given hash function
 int hashfunc(char* word, int size);
 item* hashSearch(hashtable* h, char* name);
+void freeLinkedList(node* head);
 
 int main(int argc, char *argv[]) {
 
@@ -125,6 +126,10 @@ int main(int argc, char *argv[]) {
     }
     fprintf(outFile, "%d\n%d", money, complexity);
 
+    for (int x = 0; x < TABLESIZE; x++)
+        freeLinkedList(h->lists[x]);
+
+    free(h->lists);
     free(h);
 }
 
@@ -175,4 +180,15 @@ item* hashSearch(hashtable* h, char* name) {
     // and return
     return newNode->iPtr;
 
+}
+
+void freeLinkedList(node* head) {
+    if(head == NULL)
+        return;
+
+    if (head->next != NULL)
+        freeLinkedList(head->next);
+    
+    free(head->iPtr);
+    free(head);
 }
