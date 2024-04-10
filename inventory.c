@@ -9,7 +9,10 @@
 #define CMDLEN 35
 #define MAXLEN 19
 #define TABLESIZE 300007
-#define MONEYSTART 100000
+
+// global variables for safe-keeping
+int money = 100000;
+int complexity = 0;
 
 typedef struct item {
     char name[MAXLEN+1];
@@ -46,9 +49,6 @@ int main(int argc, char *argv[]) {
         printf("invalid input/output arg");
         return -1;
     }
-
-    // count da money
-    int money = MONEYSTART;
 
     // dynamically allocate hash table
     hashtable* h = (hashtable*)malloc(sizeof(hashtable));
