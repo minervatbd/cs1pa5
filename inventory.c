@@ -46,6 +46,13 @@ int main(int argc, char *argv[]) {
         return -1;
     }
 
+    // dynamically allocate hash table
+    hashtable* h = (hashtable*)malloc(sizeof(hashtable));
+    h->size = TABLESIZE;
+    h->lists = (node**)malloc(sizeof(node*)*TABLESIZE);
+    for (int x = 0; x < TABLESIZE; x++) 
+        h->lists[x] = NULL;
+
     // first line of input should be a count of how many commands are being inputted
     int cmdCount;
     fscanf(inFile, " %d", &cmdCount);
@@ -81,6 +88,7 @@ int main(int argc, char *argv[]) {
         }
     }
 
+    free(h);
 }
 
 int hashfunc(char* word, int size) {
