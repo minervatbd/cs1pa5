@@ -143,12 +143,12 @@ item* hashSearch(hashtable* h, char* name) {
     // temp for parsing
     node* temp = head;
     while (temp != NULL) {
+        // increment complexity
+        complexity++;
+
         // if we've found a pre-existing match for the record
         if (!strcmp(temp->iPtr->name, name))
             return temp->iPtr;
-
-        // increment complexity
-        complexity++;
 
         // and move onto the next one otherwise
         temp = temp->next;
