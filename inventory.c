@@ -75,7 +75,7 @@ int main(int argc, char *argv[]) {
         token = strtok_r(rest, " ", &rest);
 
         // buy command
-        if (strcmp(token, "buy") == 0) {
+        if (!strcmp(token, "buy")) {
             // finish tokenizing cmd
             char* name = strtok_r(rest, " ", &rest);
             int num = atoi(strtok_r(rest, " ", &rest));
@@ -91,20 +91,39 @@ int main(int argc, char *argv[]) {
             money -= price;
 
             // and print to the output file
-            fprintf(outFile, "%s %d %d", entry->name, entry->quantity, money);
+            fprintf(outFile, "%s %d %d\n", entry->name, entry->quantity, money);
 
         }
         // sell command
-        if (strcmp(token, "sell") == 0) {
+        if (!strcmp(token, "sell")) {
             char* name = strtok_r(rest, " ", &rest);
             int num = atoi(strtok_r(rest, " ", &rest));
+
+            item* entry = hashSearch(h, name);
+
+            // if the quantity being sold exceeds the quantity in the inventory currently
+            if (num > entry->quantity)
+                num = entry->quantity;
+
+            // subtract number being sold from quantity
+            entry->quantity -= num;
+            // and add number being sold times sale price to total money 
+            money += num * entry->saleprice;
+
+            //and so print
+            fprintf(outFile, "%s %d %d\n", entry->name, entry->quantity, money);
         }
         // change price command
-        if (strcmp(token, "change_price") == 0) {
+        if (!strcmp(token, "change_price")) {
             char* name = strtok_r(rest, " ", &rest);
             int price = atoi(strtok_r(rest, " ", &rest));
+
+            item* entry = hashSearch(h, name);
+
+            entry->saleprice = price;
         }
     }
+    fprintf(outFile, "%d\n%d", money, complexity);
 
     free(h);
 }
