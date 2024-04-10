@@ -80,6 +80,9 @@ int main(int argc, char *argv[]) {
             char* name = strtok_r(rest, " ", &rest);
             int num = atoi(strtok_r(rest, " ", &rest));
             int price = atoi(strtok_r(rest, " ", &rest));
+
+            item* entry = hashSearch(h, name);
+
         }
         // sell command
         if (strcmp(token, "sell") == 0) {
@@ -121,16 +124,25 @@ item* hashSearch(hashtable* h, char* name) {
         // and move onto the next one otherwise
         temp = temp->next;
     }
+
     // if the function hasnt returned yet, it must mean we have to add a new entry.
     node* newNode = (node*)malloc(sizeof(node));
+
     // since we're inserting any new node at the front of the linked list, simply set next to head pointer (which might be NULL if the linked list was previously empty)
     newNode->next = head;
-    // allocate item pointer
+    
+    // allocate item pointer and set name and defaults
     newNode->iPtr = (item*)malloc(sizeof(item));
+    strcpy(newNode->iPtr->name, name);
+    newNode->iPtr->quantity = 0;
+    newNode->iPtr->saleprice = NULL;
+
     // set row in hashtable to newnode pointer since its now the front
     h->lists[row] = newNode;
+
     // increment complexity one more time.
     complexity++;
+    
     // and return
     return newNode->iPtr;
 
