@@ -81,7 +81,17 @@ int main(int argc, char *argv[]) {
             int num = atoi(strtok_r(rest, " ", &rest));
             int price = atoi(strtok_r(rest, " ", &rest));
 
+            // search for the name of the item in the hash table
             item* entry = hashSearch(h, name);
+            
+            // add the quantity being bought to the entry's quantity counter
+            entry->quantity += num;
+
+            // subtract the price the items are being bought at from the current money count
+            money -= price;
+
+            // and print to the output file
+            fprintf(outFile, "%s %d %d", entry->name, entry->quantity, money);
 
         }
         // sell command
@@ -142,7 +152,7 @@ item* hashSearch(hashtable* h, char* name) {
 
     // increment complexity one more time.
     complexity++;
-    
+
     // and return
     return newNode->iPtr;
 
