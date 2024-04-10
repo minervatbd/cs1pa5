@@ -63,11 +63,22 @@ int main(int argc, char *argv[]) {
         token = strtok_r(rest, " ", &rest);
 
         // buy command
-        if (strcmp(token, "buy") == 0) {}
+        if (strcmp(token, "buy") == 0) {
+            // finish tokenizing cmd
+            char* item = strtok_r(rest, " ", &rest);
+            int num = atoi(strtok_r(rest, " ", &rest));
+            int price = atoi(strtok_r(rest, " ", &rest));
+        }
         // sell command
-        if (strcmp(token, "sell") == 0) {}
+        if (strcmp(token, "sell") == 0) {
+            char* item = strtok_r(rest, " ", &rest);
+            int num = atoi(strtok_r(rest, " ", &rest));
+        }
         // change price command
-        if (strcmp(token, "change_price") == 0) {}
+        if (strcmp(token, "change_price") == 0) {
+            char* item = strtok_r(rest, " ", &rest);
+            int price = atoi(strtok_r(rest, " ", &rest));
+        }
     }
 
 }
