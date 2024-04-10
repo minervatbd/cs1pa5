@@ -32,7 +32,7 @@ typedef struct hashtable {
 
 // prototype for given hash function
 int hashfunc(char* word, int size);
-node* hashSearch(hashtable* h, char* item);
+item* hashSearch(hashtable* h, char* name);
 
 int main(int argc, char *argv[]) {
 
